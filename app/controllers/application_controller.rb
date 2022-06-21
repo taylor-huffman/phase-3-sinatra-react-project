@@ -7,6 +7,11 @@ class ApplicationController < Sinatra::Base
     teachers.to_json
   end
 
+  get '/teachers/:id' do
+    teacher = Teacher.find(params[:id])
+    teacher.to_json
+  end
+
   post '/teachers' do
     teacher = Teacher.create(
       name: params[:name]
