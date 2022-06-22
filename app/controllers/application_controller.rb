@@ -4,18 +4,18 @@ class ApplicationController < Sinatra::Base
   # Add your routes here
   get '/teachers/all' do
     teachers = Teacher.all
-    teachers.to_json
+    teachers.to_json(include: :user_role)
   end
 
   get '/teachers/find' do
     name = params[:name]
     teacher = Teacher.find_by(name: name)
-    teacher.to_json
+    teacher.to_json(include: [:user_role, { appointments: { include: [{ student: { include: :user_role } }, :subject] } }])
   end
 
   get '/teachers/:id' do
     teacher = Teacher.find(params[:id])
-    teacher.to_json(include: { appointments: { include: [:student, :subject] } })
+    teacher.to_json(include: [:user_role, { appointments: { include: [{ student: { include: :user_role } }, :subject] } }])
   end
 
   post '/teachers' do
@@ -33,18 +33,18 @@ class ApplicationController < Sinatra::Base
 
   get '/students/all' do
     students = Student.all
-    students.to_json
+    students.to_json(include: :user_role)
   end
 
   get '/students/find' do
     name = params[:name]
     student = Student.find_by(name: name)
-    student.to_json
+    student.to_json(include: [:user_role, { appointments: { include: [{ teacher: { include: :user_role } }, :subject] } }])
   end
 
   get '/students/:id' do
     student = Student.find(params[:id])
-    student.to_json(include: { appointments: { include: [:teacher, :subject] } })
+    student.to_json(include: [:user_role, { appointments: { include: [{ teacher: { include: :user_role } }, :subject] } }])
   end
 
   post '/students' do
