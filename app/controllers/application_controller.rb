@@ -20,9 +20,10 @@ class ApplicationController < Sinatra::Base
 
   post '/teachers' do
     teacher = Teacher.create(
-      name: params[:name]
+      name: params[:name],
+      user_role_id: params[:user_role_id]
     )
-    teacher.to_json
+    teacher.to_json(include: [:user_role, { appointments: { include: [{ student: { include: :user_role } }, :subject] } }])
   end
 
   delete '/teachers/:id' do
@@ -49,9 +50,10 @@ class ApplicationController < Sinatra::Base
 
   post '/students' do
     student = Student.create(
-      name: params[:name]
+      name: params[:name],
+      user_role_id: params[:user_role_id]
     )
-    student.to_json
+    student.to_json(include: [:user_role, { appointments: { include: [{ teacher: { include: :user_role } }, :subject] } }])
   end
 
   delete '/students/:id' do
