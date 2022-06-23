@@ -62,7 +62,7 @@ class ApplicationController < Sinatra::Base
     student.to_json
   end
 
-  get '/subjects' do
+  get '/subjects/all' do
     subjects = Subject.all
     subjects.to_json
   end
@@ -72,15 +72,15 @@ class ApplicationController < Sinatra::Base
   #   appointments.to_json
   # end
 
-  # post '/appointments' do
-  #   appointment = Appointment.create(
-  #     date: params[:date],
-  #     student_id: params[:student_id],
-  #     teacher_id: params[:teacher_id],
-  #     subject_id: params[:subject_id]
-  #   )
-  #   appointment.to_json
-  # end
+  post '/appointments' do
+    appointment = Appointment.create(
+      date: params[:date],
+      student_id: params[:student_id],
+      teacher_id: params[:teacher_id],
+      subject_id: params[:subject_id]
+    )
+    appointment.to_json
+  end
 
   # patch '/appointments/:id' do
   #   appointment = Appointment.find(params[:id])
