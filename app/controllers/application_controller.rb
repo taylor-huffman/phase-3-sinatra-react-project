@@ -90,7 +90,7 @@ class ApplicationController < Sinatra::Base
       teacher_id: params[:teacher_id],
       subject_id: params[:subject_id]
     )
-    appointment.to_json
+    appointment.to_json(include: [:teacher, :student, :subject])
   end
 
   delete '/appointments/:id' do
