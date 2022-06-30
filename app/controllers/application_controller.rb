@@ -82,21 +82,21 @@ class ApplicationController < Sinatra::Base
     appointment.to_json
   end
 
-  # patch '/appointments/:id' do
-  #   appointment = Appointment.find(params[:id])
-  #   appointment.update(
-  #     date: params[:date],
-  #     student_id: params[:student_id],
-  #     teacher_id: params[:teacher_id],
-  #     subject_id: params[:subject_id]
-  #   )
-  #   appointment.to_json
-  # end
+  patch '/appointments/:id' do
+    appointment = Appointment.find(params[:id])
+    appointment.update(
+      date: params[:date],
+      student_id: params[:student_id],
+      teacher_id: params[:teacher_id],
+      subject_id: params[:subject_id]
+    )
+    appointment.to_json
+  end
 
-  # delete '/appointments/:id' do
-  #   appointment = Appointment.find(params[:id])
-  #   appointment.destroy
-  #   appointment.to_json
-  # end
+  delete '/appointments/:id' do
+    appointment = Appointment.find(params[:id])
+    appointment.destroy
+    appointment.to_json
+  end
 
 end
